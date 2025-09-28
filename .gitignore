@@ -1,0 +1,152 @@
+# --- Python bytecode / caches ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Compiled extensions
+*.so
+*.pyd
+*.dll
+
+# --- Virtual environments & local tooling ---
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.python-version          # pyenv
+
+# PEP 582 (e.g., pdm)
+__pypackages__/
+
+# --- Packaging / distribution ---
+.build/
+build/
+dist/
+downloads/
+.eggs/
+.eggs*/
+*.egg-info/
+*.egg
+wheels/
+share/python-wheels/
+MANIFEST
+.installed.cfg
+pip-wheel-metadata/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# pip-tools output (usually commit requirements*.txt, ignore temp)
+*.pyre-check
+
+# --- Testing / Coverage ---
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.coverage-reports/
+pytestdebug.log
+
+# --- Type checkers / linters / formatters ---
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+ruff_cache/
+.pyright/
+.pycodestyle
+.pylint.d/
+.sourcery/
+
+# --- Jupyter / IPython ---
+.ipynb_checkpoints/
+profile_default/
+ipython_config.py
+# VSCode/Jupyter temp
+**/.local/share/jupyter/
+
+# --- Documentation ---
+docs/_build/
+site/                 # mkdocs
+
+# --- Translations ---
+*.mo
+*.pot
+
+# --- Framework specifics ---
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+media/
+
+# Flask
+instance/
+.webassets-cache/
+
+# Scrapy
+.scrapy/
+
+# Sphinx
+Thumbs.db
+.DS_Store
+
+# --- Databases / data dumps (project-dependent; keep if you commit fixtures) ---
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# --- Env / secrets (keep an .env.example!) ---
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# --- Cython debug symbols ---
+cython_debug/
+
+# --- Editors / IDEs ---
+# VS Code
+.vscode/
+.history/
+# JetBrains / PyCharm
+.idea/
+*.iml
+# Vim
+*.swp
+*.swo
+# Emacs
+*~
+\#*\#
+.emacs.desktop
+# Sublime
+*.sublime-workspace
+*.sublime-project
+
+# --- OS files ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
