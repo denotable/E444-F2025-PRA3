@@ -17,6 +17,15 @@ os.makedirs(app.instance_path, exist_ok=True)
 app.config.from_object(__name__)
 
 
+@app.before_first_request
+def boot():
+    try:
+        db = get_db()
+        db.execute("SELECT 1 FROM entries LIMIT 1;")
+    except sqlite3.OperationalError:
+        init_db()  # reads project/schema.sql; falls back to creating the table
+
+
 # connect to database
 def connect_db():
     """Connects to the database."""
@@ -111,5 +120,6 @@ def delete_entry(post_id):
 
 if __name__ == "__main__":
     app.run()
+
 
 
