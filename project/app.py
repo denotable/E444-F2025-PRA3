@@ -1,5 +1,5 @@
+import os
 import sqlite3
-
 from flask import Flask, g, render_template, request, session, flash, redirect, url_for, abort, jsonify
 
 
@@ -10,7 +10,8 @@ PASSWORD = "admin"
 SECRET_KEY = "change_me"
 
 # create and initialize a new Flask app
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
+os.makedirs(app.instance_path, exist_ok=True)
 
 # load the config
 app.config.from_object(__name__)
@@ -110,6 +111,5 @@ def delete_entry(post_id):
 
 if __name__ == "__main__":
     app.run()
-
 
 
