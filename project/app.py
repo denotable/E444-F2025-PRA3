@@ -3,6 +3,7 @@ from pathlib import Path
 from flask import Flask, render_template, request, session, flash, redirect, url_for, abort, jsonify
 from project import models
 from project.models import db, Post
+from functools import wraps
 
 basedir = Path(__file__).resolve().parent
 
@@ -20,9 +21,18 @@ app.config.from_object(__name__)
 # Initialize SQLAlchemy with the app
 db.init_app(app)
 
-# Create tables once per process (Flask 3.x safe)
+# Create tables once per process
 with app.app_context():
     db.create_all()
+    
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('logged_in'):
+            flash('Please log in.')
+            return jsonify({'status': 0, 'message': 'Please log in.'}), 401
+        return f(*args, **kwargs)
+    return decorated_function
 
 @app.route("/")
 def index():
@@ -59,16 +69,19 @@ def logout():
     flash("You were logged out")
     return redirect(url_for("index"))
 
-@app.route("/delete/<int:post_id>")
+@app.route('/delete/<int:post_id>', methods=['GET'])
+@login_required
 def delete_entry(post_id):
-    result = {"status": 0, "message": "Error"}
+    """Deletes post from database."""
+    result = {'status': 0, 'message': 'Error'}
     try:
-        Post.query.filter_by(id=post_id).delete()
+        new_id = post_id
+        db.session.query(models.Post).filter_by(id=new_id).delete()
         db.session.commit()
-        result = {"status": 1, "message": "Post Deleted"}
-        flash("The entry was deleted.")
+        result = {'status': 1, 'message': "Post Deleted"}
+        flash('The entry was deleted.')
     except Exception as e:
-        result = {"status": 0, "message": repr(e)}
+        result = {'status': 0, 'message': repr(e)}
     return jsonify(result)
 
 if __name__ == "__main__":
