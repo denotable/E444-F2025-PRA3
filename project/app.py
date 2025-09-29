@@ -1,6 +1,7 @@
 # project/app.py
 from pathlib import Path
 from flask import Flask, render_template, request, session, flash, redirect, url_for, abort, jsonify
+from project import models
 from project.models import db, Post
 
 basedir = Path(__file__).resolve().parent
@@ -73,6 +74,12 @@ def delete_entry(post_id):
 if __name__ == "__main__":
     app.run()
 
-
+@app.route('/search/', methods=['GET'])
+def search():
+    query = request.args.get("query")
+    entries = db.session.query(models.Post)
+    if query:
+        return render_template('search.html', entries=entries, query=query)
+    return render_template('search.html')
 
 
